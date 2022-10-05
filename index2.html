@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        class Country {
+            constructor(name,flag,democracy){
+                this.name = name;
+                this.flag = flag;
+                this.democracy = democracy
+            }
+
+            about(){ 
+                if(this.democracy == true){
+                    let html = ""
+                html = `<div>The country ${this.name} has the flag <img src="${this.flag}" style="width:80px;height:90px;"> and is a democracy.</div>`
+                    return html
+                }
+                if(this.democracy == false){
+                    let html = ""
+                html = `<div>The country ${this.name} has the flag <img src="${this.flag}" style="width:80px;height:90px;"> and is NOT a democracy.</div>`
+                    return html
+                }
+                
+            }
+
+        }
+
+       
+
+        class Scandinavia extends Country{
+            constructor(name,flag,democracy,temperature){
+                super(name,flag,democracy)
+                this.temperature = temperature
+            }
+
+            aboutScandinavia (){
+                let html = ""
+                html = `<div> ${this.name} belongs to Scandivnavia.It has the flag <img src="${this.flag}" style="width:80px;height:90px;">  is a democracy, and is a ${this.temperature} country.</div>`
+                    return html
+
+            }
+
+        }
+
+
+        let brasil = new Country("Brasil","imgs/brasil.flag.png",true)
+        let singapore = new Country ("Singapore" , "imgs/singapore.flag.png",false)
+        let norway = new Scandinavia("Norway","imgs/norway.flag.jpg",true,"cold")
+
+
+        updateView()
+        function updateView(){
+            let html = ""
+            
+
+            html+= `<h1>A bit about class inheritance</h1>
+            <div>${brasil.about()} - brasil.about()</div><br>
+            <div>${singapore.about()} - singapore.about()</div><br>
+            <div>${norway.about()} - norway.about()</div><br>
+            <div>${norway.aboutScandinavia()} - norway.aboutScandinavia()</div>`
+
+            document.getElementById("app").innerHTML = html;
+        }
+
+
+
+    </script>
+</body>
+</html>

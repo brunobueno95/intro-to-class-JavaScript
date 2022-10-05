@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+
+    <script>
+
+        class Item {
+            constructor(name,price,picture,){
+                this.name = name;
+                this.price = price;
+                this.picture = picture
+                this.promotion = false
+            }
+
+            sales(){
+                if(this.price < 100){
+                    this.promotion = true;
+                }
+                else{
+                    this.promotion = false;
+                }
+            }
+        }
+
+
+        class List{
+            
+            constructor (item1, item2, item3){ 
+                this.item1 = item1
+                this.item2 = item2
+                this.item3 = item3
+                this.ListOfItems = [item1,item2,item3]
+            }
+            
+
+            addItem(item){
+               this.ListOfItems.push(item)
+               updateView()
+
+            }
+
+            removeItem(index){
+                this.ListOfItems.splice(index,1)
+                updateView()
+            }
+        }
+
+        //Main
+
+        let myList= new List(new Item("Milk",90, "imgs/milk.jpg"), new Item("Cereal", 200 , "imgs/cereal.webp"), 
+        new Item("Brown Cheese", 300 , "imgs/brownCheese.png"))
+
+        let newItemPicture;
+    let newItemName;
+    let newItemPrice;
+    
+    let newItem = new Item(newItemName,newItemPrice,newItemPicture)
+       
+updateView()
+function updateView(){
+   
+    let html = ""
+    html+= `<h1>List made by Classes</h1>
+        <ul>`
+
+    if(myList.ListOfItems.length>0){
+        for(i =0; i<myList.ListOfItems.length; i++){
+            myList.ListOfItems[i].sales()
+            html += `<li>
+                <div> <img src = "${myList.ListOfItems[i].picture}" style="width:80px;height:90px;">
+                    ${myList.ListOfItems[i].name} 
+                    ${myList.ListOfItems[i].price  + " kr"} 
+                    Is on Sale: ${myList.ListOfItems[i].promotion}</div>
+                
+                </li><button onclick="myList.removeItem(${i})">X</button>`
+}
+
+}
+html+= `</ul>
+              add Item : Name  <input type="text" onchange="newItem.name = this.value"> <br>
+              Price <input type="number" onchange="newItem.price = this.value"> <br>
+              Picture <input type="text" onchange="newItem.picture = this.value">
+         
+              <button onclick = "myList.addItem(newItem)">ADD</button>`
+ 
+     document.getElementById("app").innerHTML = html
+
+}
+
+
+    </script>
+
+</body>
+</html>

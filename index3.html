@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        class Country {
+            constructor(name,flag,democracy,){
+                this.name = name;
+                this.flag = flag;
+                this.democracy = democracy
+                this.jstAcheck = 0
+            }
+
+            about(){ 
+                if(this.democracy == true){
+                    let html = ""
+                html = `<div>The country ${this.name} has the flag <img src="${this.flag}" style="width:80px;height:90px;"> and is a democracy.</div>`
+                    return html
+                }
+                if(this.democracy == false){
+                    let html = ""
+                html = `<div>The country ${this.name} has the flag <img src="${this.flag}" style="width:80px;height:90px;"> and is NOT a democracy.</div>`
+                    return html
+                }
+                
+            }
+
+            checking(){
+                console.log("country checking ")
+                this.jstAcheck ++
+            }
+
+        }
+
+       
+
+        class Scandinavia extends Country{
+            constructor(name,flag,democracy,temperature){
+                super(name,flag,democracy)
+                this.temperature = temperature
+            }
+
+            checking(){
+                super.checking()
+                console.log("Scandinavia checking ")
+                this.jstAcheck +=10
+            }
+
+            about(){
+                
+                let html = ""
+                html += `<img src="${this.flag}" style="width:80px;height:90px;"> overwriting about info`
+                return html 
+            }
+
+            aboutScandinavia (){
+                let html = ""
+                html = `<div> ${this.name} belongs to Scandivnavia.It has the flag <img src="${this.flag}" style="width:80px;height:90px;">  is a democracy, and is a ${this.temperature} country.</div>`
+                    return html
+
+            }
+
+        }
+
+
+        let brasil = new Country("Brasil","imgs/brasil.flag.png",true)
+        let singapore = new Country ("Singapore" , "imgs/singapore.flag.png",false)
+        let norway = new Scandinavia("Norway","imgs/norway.flag.jpg",true,"cold")
+
+
+        updateView()
+        function updateView(){
+            let html = ""
+            
+
+            html+= `<h1>A bit about Polimorphism</h1>
+            <div>${brasil.about()} - brasil.about()</div><br>
+            <div>${singapore.about()} - singapore.about()</div><br>
+            <div>${norway.about()} - norway.about()</div><br>
+            <div>${norway.aboutScandinavia()} - norway.aboutScandinavia()</div><br><br>`
+
+            norway.checking()
+
+            html+= `<div>A check about using the old inherited method on the new method &#8594; ${norway.jstAcheck}! +1 come from the Parent, +10 come from the Child</div><br>
+            brasil.checking()&#8592; country method ---- brasil.jstAcheck &#8594;`
+             brasil.checking()
+             html+=` ${brasil.jstAcheck}<br>
+            norway.checking()&#8592; scandivania method ---- norway.jstAcheck &#8594;`
+             norway.checking()
+             html +=`${norway.jstAcheck}`
+
+            document.getElementById("app").innerHTML = html;
+        }
+
+
+
+    </script>
+</body>
+</html>
